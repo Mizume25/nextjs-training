@@ -187,6 +187,7 @@ export type Database = {
           name: string
           rol: boolean
           updated_at: string
+          password:string
         }
         Insert: {
           created_at?: string

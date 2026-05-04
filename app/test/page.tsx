@@ -34,7 +34,7 @@ export default function page() {
              Age
           <input
             type="number"
-            {...register("age", { valueAsNumber:true,required:"La edad es obligatorio", max:{value: 90, message:"Maximo de edad"}, min:{value:18 , message:"Edad Minima"}})}
+            {...register("age", { valueAsNumber:true, required:"La edad es obligatorio", max:{value: 90, message:"Maximo de edad"}, min:{value:18 , message:"Edad Minima"}})}
             className="border-0 border-b-2 border-zinc-600 bg-transparent
                    py-2 text-base text-white outline-none transition-colors
                    focus:border-indigo-400 placeholder:text-zinc-600"
