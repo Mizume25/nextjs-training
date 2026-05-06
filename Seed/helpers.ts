@@ -27,7 +27,7 @@ export const getUsersSize = async (): Promise<number> => {
 //Obtener customer
 export const getCustomersIds = async (): Promise<string[] | []> => {
     const { data } = await supabaseAdmin
-    .from("customers")
+    .from("Customers")
     .select("*");
 
     return data?.map(customer => customer.id) ?? [];
@@ -36,7 +36,7 @@ export const getCustomersIds = async (): Promise<string[] | []> => {
 //Obtener customer
 export const getRecordsIds = async (): Promise<string[] | []> => {
     const { data } = await supabaseAdmin
-    .from("records")
+    .from("Records")
     .select("*");
 
     return data?.map(record => record.id) ?? [];
@@ -44,7 +44,7 @@ export const getRecordsIds = async (): Promise<string[] | []> => {
 
 export const queryInvoice = async (): Promise<RecordQuery[] | []> => {
     const { data } = await supabaseAdmin
-     .from("records")
+     .from("Records")
     .select("id, customer_id");
 
 

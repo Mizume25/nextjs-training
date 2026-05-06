@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed": "npx tsx Seed/DataSeeder.ts"
+    "seed": "npx tsx Seed/DataSeeder.ts",
+    "clean": "npx tsx Seed/DataCleaner.ts",
+    "fresh": "npm run clean && npm run seed"
   },
   "dependencies": {
     "@faker-js/faker": "^10.4.0",

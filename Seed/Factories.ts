@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 //LISTA DE FUNCIONES FAKER
 import { faker } from '@faker-js/faker'
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import {
-    User,
     Customer,
     Invoice,
     Record,
@@ -15,6 +15,19 @@ import {
 import { getUsersIds,getCustomersIds,getRecordsIds, queryInvoice } from './helpers'
 import { RecordQuery } from './helpers'
 
+export const UserFaker = async () => {
+    const { data, error } = await supabaseAdmin.auth.admin.createUser({
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+        email_confirm: true,
+        user_metadata: {
+            name: faker.person.fullName()
+        }
+    });
+
+    if (error) throw new Error(error.message);
+    return data.user;
+}
 
 let i = 0;
 export const CustomerFaker = async ():  Promise<Omit<Customer, "id" | "created_at" | "updated_at">> => {
@@ -28,7 +41,7 @@ export const CustomerFaker = async ():  Promise<Omit<Customer, "id" | "created_a
          
         return ({
             name:faker.person.firstName(),
-            nif:faker.string.numeric(),
+            nif: faker.string.numeric(8) + faker.string.alpha(1).toUpperCase(),
             telefono:faker.phone.number(),
             direccion:faker.location.streetAddress(),
             user_id: user_id
