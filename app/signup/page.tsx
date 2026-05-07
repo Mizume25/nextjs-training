@@ -3,8 +3,7 @@ import { SignupForm } from "@/components/signup-form"
 import Link from "next/link"
 import { createClient } from '@/lib/server'
 import { redirect } from 'next/navigation'
-import { DataForm } from "@/components/signup-form"
-
+import { DataForm } from "@/components/signup-form"  
 export default async function Page() {
 
   //Funcion que recibe informacion del hijo

@@ -1,6 +1,5 @@
 'use client'
 import { useRouter } from 'next/navigation'               // ← añadir
-
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -31,7 +30,7 @@ interface SignupFormProps extends React.ComponentProps<typeof Card> {
 }
 
 export function SignupForm({ handleFormData, ...props }: SignupFormProps) {
-
+  const router = useRouter()
   
   //DECLARACION de la reconstruccion de useForm
   const { register, handleSubmit, formState: { errors } , reset, watch} = useForm<DataForm>();
@@ -42,6 +41,7 @@ export function SignupForm({ handleFormData, ...props }: SignupFormProps) {
 
     await handleFormData(data);
     reset();
+    router.push('/dashboard')
   }
 
   return (
@@ -54,7 +54,7 @@ export function SignupForm({ handleFormData, ...props }: SignupFormProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} >
           <FieldGroup>
             
             <Field>
@@ -83,8 +83,8 @@ export function SignupForm({ handleFormData, ...props }: SignupFormProps) {
               {/* Descripcion*/}
               <FieldDescription>
                 {errors.password && <span className="text-red-600">{errors.password.message}</span>}
-                <br />
-                Cumpla con los requisitos estipulados
+                
+                <small>Minimo 10 caracteres</small>
               </FieldDescription>
             </Field>
             <Field>
@@ -100,7 +100,7 @@ export function SignupForm({ handleFormData, ...props }: SignupFormProps) {
             <FieldGroup>
               <Field>
                 <Button type="submit" className="w-full py-2.5 rounded-xl bg-white text-black text-sm font-medium
-             tracking-wide transition-all hover:bg-zinc-200 active:scale-95 cursor-pointer">Create Account</Button>
+             tracking-wide transition-all hover:bg-zinc-200 active:scale-95 cursor-pointer">Crear Cuenta</Button>
                
                 <FieldDescription className="px-6 text-center">
                   ¿Ya tienes una cuenta creada? <a href="/login">Login</a>

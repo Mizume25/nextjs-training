@@ -3,7 +3,7 @@ import { createClient } from '@/lib/server'
 import { useRouter } from "next/router";
 
 export default async function Page() {
-
+    
   const handleLoginForm = async(e:LoginForm) => {
       'use server'
       const email = e.email ?? ""
@@ -16,7 +16,7 @@ export default async function Page() {
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <LoginForm />
+        <LoginForm handleLoginForm={handleLoginForm}/>
       </div>
     </div>
   )

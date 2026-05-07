@@ -17,23 +17,28 @@ import {
 import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form"
 import { DataForm } from "./signup-form"
-
+import { useRouter } from "next/navigation"
 //Importamos DataForm sin la confirmacion
 export interface LoginForm extends Omit<DataForm, "confirm_password">{}
 
 //Interface de LoginPageProps
-interface LoginPageProp extends  React.ComponentProps<"div">{}
+interface LoginPageProp extends  React.ComponentProps<"div">{
+  handleLoginForm:(e:DataForm) => void
+}
 
 export function LoginForm({
+  handleLoginForm,
   className,
   ...props
-}: React.ComponentProps<"div">) {
-
+}: LoginPageProp) {
+  
+  const router = useRouter()
   //Propiea
   const {register, handleSubmit ,formState: { errors }, reset, watch} = useForm<LoginForm>();
 
   const onSubmit = async (data:LoginForm):Promise<void> => {
     reset();
+    
   }
 
 
