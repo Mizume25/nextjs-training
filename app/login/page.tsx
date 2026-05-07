@@ -1,5 +1,7 @@
 import { LoginForm } from "@/components/login-form"
 import { createClient } from '@/lib/server'
+import { useRouter } from "next/router";
+
 export default async function Page() {
 
   const handleLoginForm = async(e:LoginForm) => {
