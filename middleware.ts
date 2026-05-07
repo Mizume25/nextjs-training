@@ -17,13 +17,18 @@ export async function middleware(request: NextRequest) {
     }}
   )
 
-  // refresca la sesión en cada petición
-  const { data: { user } } =
-    await supabase.auth.getUser()
+  const { data: { user } } = await supabase.auth.getUser()
 
-  // redirige si no está logado
-  if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
+  // Si no está logado y intenta acceder a rutas protegidas → login
+  if (!user && !request.nextUrl.pathname.startsWith('/login') 
+            && !request.nextUrl.pathname.startsWith('/register')) {
     return NextResponse.redirect(new URL('/login', request.url))
+  }
+
+  // Si está logado e intenta acceder a login/register → dashboard
+  if (user && (request.nextUrl.pathname.startsWith('/login') 
+            || request.nextUrl.pathname.startsWith('/register'))) {
+    return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
   return response
