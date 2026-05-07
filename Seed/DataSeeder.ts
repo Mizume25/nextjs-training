@@ -7,7 +7,7 @@ import {
     InvoiceFaker,
     UserFaker
 } from './Factories'
-import { createClient } from "@/lib/server";
+import { createClient } from "@/lib/client";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { getUsersSize } from "./helpers";
 

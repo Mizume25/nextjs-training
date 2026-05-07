@@ -1,4 +1,6 @@
-"use client"
+'use client'
+import { useRouter } from 'next/navigation'               // ← añadir
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -19,21 +21,27 @@ import { type User } from "@/types/definitions"
 import { useForm } from "react-hook-form"
 
 //From Data extienede todo lo de un Usuario 
-interface FormData extends User {
-    confirm_password:string
+export interface DataForm extends Pick<User, "email"> {
+  password: string
+  confirm_password: string
 }
 
-export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
+interface SignupFormProps extends React.ComponentProps<typeof Card> {
+  handleFormData: (e: DataForm) => void
+}
 
+export function SignupForm({ handleFormData, ...props }: SignupFormProps) {
 
+  
   //DECLARACION de la reconstruccion de useForm
-  const { register, handleSubmit, formState: { errors } , reset, watch} = useForm<FormData>();
+  const { register, handleSubmit, formState: { errors } , reset, watch} = useForm<DataForm>();
 
 
   //Lo unico que hara es imprimi informacion
-  const onSubmit = (e:FormData):void => {
-    console.log(e)
-    reset()
+  const onSubmit = async (data:DataForm):Promise<void> => {
+
+    await handleFormData(data);
+    reset();
   }
 
   return (
@@ -48,14 +56,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FieldGroup>
-            <Field>
-              <FieldLabel htmlFor="name">Nombre</FieldLabel>
-              <Input {...register("name", {required:"Es obligatorio", maxLength:30})} type="text" placeholder="John Doe" required />
-              {errors.name && <span>{errors.name.message}</span>}
-            </Field>
-            <FieldDescription >
-              {errors.name && <span>{errors.name.message}</span>}
-            </FieldDescription>
+            
             <Field>
               <FieldLabel htmlFor="email">Email</FieldLabel>
               <Input
@@ -102,7 +103,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
              tracking-wide transition-all hover:bg-zinc-200 active:scale-95 cursor-pointer">Create Account</Button>
                
                 <FieldDescription className="px-6 text-center">
-                  ¿Ya tienes una cuenta creada? <a href="/login">Sign in</a>
+                  ¿Ya tienes una cuenta creada? <a href="/login">Login</a>
                 </FieldDescription>
               </Field>
             </FieldGroup>
